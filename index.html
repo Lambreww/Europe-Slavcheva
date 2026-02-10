@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Политическа карта – Европа</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Fullscreen background map -->
+  <main class="map-page" id="mapPage">
+    <div class="pgee-badge">
+      PGEE
+    </div>
+    <!-- Лява колона с точки -->
+    <div class="left-points" aria-label="Точки">
+      <button class="map-point" data-id="1" aria-haspopup="dialog" title="">
+        <span class="dot"></span><span class="label">Точка 1</span>
+      </button>
+
+      <button class="map-point" data-id="2" aria-haspopup="dialog" title="Точка 2">
+        <span class="dot"></span><span class="label">Точка 2</span>
+      </button>
+
+      <button class="map-point" data-id="3" aria-haspopup="dialog" title="Когато любовта липсва">
+        <span class="dot"></span><span class="label">Когато любовта липсва</span>
+      </button>
+
+      <button class="map-point" data-id="4" aria-haspopup="dialog" title="Точка 4">
+        <span class="dot"></span><span class="label">Точка 4</span>
+      </button>
+
+      <button class="map-point" data-id="5" aria-haspopup="dialog" title="Точка 5">
+        <span class="dot"></span><span class="label">Точка 5</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- ✅ MODAL (липсваше) -->
+  <div id="modalBackdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title">Заглавие</h2>
+        <button id="closeBtn" class="close-btn" type="button" aria-label="Затвори">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <img id="modalImg" class="modal-img" src="" alt="" />
+        <p id="modalDesc" class="modal-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
