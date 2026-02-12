@@ -6,9 +6,18 @@ html, body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
+:root{
+  --glass: rgba(255,255,255,0.14);
+  --glass-strong: rgba(255,255,255,0.22);
+  --stroke: rgba(0,0,0,0.12);
+  --shadow: 0 20px 80px rgba(0,0,0,0.35);
+  --text-blue: rgba(0, 51, 169, 0.85);
+}
+
 /* ===== MAP PAGE ===== */
 .map-page{
-  min-height: 100vh;
+  /* 100svh решава “скачащия” адрес бар на мобилни */
+  min-height: 100svh;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -30,11 +39,17 @@ html, body {
   gap: 25px;
   z-index: 5;
 
-  background: rgba(163, 152, 0, 0.213);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(163, 152, 0, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.10);
   border-radius: 14px;
   padding: 10px;
+
+  /* mobile-friendly: ако точките станат повече */
+  max-height: calc(100svh - 140px);
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .map-point{
@@ -44,9 +59,9 @@ html, body {
 
   border: 1px solid rgba(0,0,0,0.10);
   background: rgba(255, 255, 255, 0.22);
-  color: rgba(0, 51, 169, 0.85);
+  color: var(--text-blue);
 
-  padding: 43px 12px;
+  padding: 18px 14px;
   border-radius: 40px;
   cursor: pointer;
 
@@ -82,9 +97,17 @@ html, body {
   background: rgba(0,0,0,0.55);
   z-index: 50;
 
-  display: grid;
-  place-items: center;
-  padding: 18px;
+  /* desktop: “drawer” под PGEE, по височината на картата */
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: calc(20px + env(safe-area-inset-top))
+           calc(18px + env(safe-area-inset-right))
+           calc(18px + env(safe-area-inset-bottom))
+           calc(18px + env(safe-area-inset-left));
+
+  /* да не покрива PGEE “badge”-a */
+  padding-top: calc(92px + env(safe-area-inset-top));
 }
 
 /* 🔒 гарантира, че hidden работи */
@@ -94,20 +117,19 @@ html, body {
 
 /* ✅ МОДАЛЪТ ДА СЕ ОПРЕДЕЛЯ ОТ СНИМКАТА (SHRINK-WRAP) */
 .modal{
-  /* ключово: ширината идва от съдържанието */
-  width: fit-content;
-  height: fit-content;
+  /* drawer */
+  height: 100%;
   display: inline-flex;
   flex-direction: column;
 
-  /* ограничаваме да не излиза от екрана */
-  max-width: 92vw;
-  max-height: 92vh;
+  /* ширината идва от снимката, но с разумни граници */
+  width: fit-content;
+  max-width: min(520px, 92vw);
 
   background: rgba(255,255,255,0.98);
   border-radius: 18px;
-  border: 1px solid rgba(0,0,0,0.12);
-  box-shadow: 0 20px 80px rgba(0,0,0,0.35);
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
@@ -128,6 +150,7 @@ html, body {
   font-size: 18px;
   font-weight: 800;
   color: #111;
+  min-height: 1em;
 }
 
 .close-btn{
@@ -145,22 +168,21 @@ html, body {
 
 /* BODY */
 .modal-body{
-  /* не разтягаме модала излишно */
   padding: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 /* ✅ СНИМКАТА ОПРЕДЕЛЯ ШИРОЧИНАТА НА POP-UP */
 .modal-img{
-  /* важните: НЕ width:100% и НЕ height:100% */
   width: auto !important;
   height: auto !important;
 
-  /* ограничение спрямо екрана */
-  max-width: 86vw;
-  max-height: 78vh;
+  /* ограничение спрямо drawer-а */
+  max-width: min(480px, 86vw);
+  max-height: calc(100svh - 120px);
 
   object-fit: contain;
 
@@ -191,7 +213,6 @@ html, body {
 
   color: rgba(0, 65, 163, 0.85);
 
-  /* glass / blend effect */
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(14px);
@@ -201,5 +222,83 @@ html, body {
     0 8px 30px rgba(0, 0, 0, 0.50),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
 
-  pointer-events: none; /* 👈 не пречи на картата */
+  pointer-events: none;
+}
+
+/* =====================
+   ✅ RESPONSIVE
+   ===================== */
+
+@media (max-width: 900px){
+  .left-points{
+    right: 14px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+
+  .map-point{
+    min-width: 150px;
+    padding: 14px 12px;
+  }
+
+  .pgee-badge{
+    top: 14px;
+    left: 14px;
+    padding: 10px 26px;
+    font-size: 22px;
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (max-width: 640px){
+  /* ✅ Точките стават долен “dock” (удобно за телефон) */
+  .left-points{
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    max-width: calc(100vw - 24px);
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .left-points::-webkit-scrollbar{ display:none; }
+
+  .map-point{
+    min-width: auto;
+    padding: 10px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .label{ font-size: 13px; }
+
+  /* ✅ Drawer -> bottom sheet */
+  .modal-backdrop{
+    align-items: flex-end;
+    justify-content: center;
+    padding: 12px;
+  }
+  .modal{
+    width: min(96vw, 560px);
+    height: min(86svh, 760px);
+    border-radius: 20px;
+  }
+  .modal-img{
+    max-width: 92vw;
+    max-height: calc(86svh - 120px);
+  }
+
+  .pgee-badge{
+    top: 12px;
+    left: 12px;
+    padding: 10px 22px;
+    font-size: 20px;
+  }
 }

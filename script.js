@@ -45,3 +45,23 @@ modalBackdrop.addEventListener("mousedown", (e) => {
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && !modalBackdrop.hidden) closeModal();
 });
+
+function openModal(data) {
+  modalTitle.textContent = data.title || "";
+
+  // Ако няма снимка – скриваме img (иначе браузърът прави грешен request)
+  if (data.img) {
+    modalImg.hidden = false;
+    modalImg.src = data.img;
+    modalImg.alt = data.title || "";
+  } else {
+    modalImg.hidden = true;
+    modalImg.src = "";
+    modalImg.alt = "";
+  }
+
+  modalDesc.textContent = data.desc || "";
+  modalBackdrop.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
