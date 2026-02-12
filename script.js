@@ -3,7 +3,7 @@ const points = {
   2: { title: "Точка 2", img: "./assets/popup-2.jpg", desc: "" },
   3: { title: "Когато любовта липсва", img: "./assets/popup-3.jpg", desc: "" },
   4: { title: "Точка 4", img: "./assets/popup-4.jpg", desc: "" },
-  5: { title: "Точка 5", img: "./assets/popup-5.jpg", desc: "" },
+  5: { title: "Точка 5", img: "", desc: "" },
 };
 
 const modalBackdrop = document.getElementById("modalBackdrop");
