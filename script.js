@@ -3,7 +3,7 @@ const points = {
   2: { title: "Когато любовта боли", img: "./assets/popup-2.jpg", desc: "" },
   3: { title: "Когато любовта липсва", img: "./assets/popup-3.jpg", desc: "" },
   4: { title: "Уважение към различието", img: "./assets/popup-4.jpg", desc: "" },
-  5: { title: "Европа, която избираме.", img: "./assets/popup-5.jpg", desc: "" },
+  5: { title: "Европа, която избираме", img: "./assets/popup-5.jpg", desc: "" },
 };
 
 const modalBackdrop = document.getElementById("modalBackdrop");
