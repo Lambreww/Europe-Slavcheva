@@ -1,9 +1,9 @@
 const points = {
-  1: { title: "Точка 1", img: "./assets/popup-1.jpg", desc: "" },
-  2: { title: "Точка 2", img: "./assets/popup-2.jpg", desc: "" },
+  1: { title: "Любовта като солидарност", img: "./assets/popup-1.jpg", desc: "" },
+  2: { title: "Когато любовта боли", img: "./assets/popup-2.jpg", desc: "" },
   3: { title: "Когато любовта липсва", img: "./assets/popup-3.jpg", desc: "" },
-  4: { title: "Точка 4", img: "./assets/popup-4.jpg", desc: "" },
-  5: { title: "Точка 5", img: "", desc: "" },
+  4: { title: "Уважение към различието", img: "./assets/popup-4.jpg", desc: "" },
+  5: { title: "Европа, която избираме.", img: "./assets/popup-5.jpg", desc: "" },
 };
 
 const modalBackdrop = document.getElementById("modalBackdrop");
